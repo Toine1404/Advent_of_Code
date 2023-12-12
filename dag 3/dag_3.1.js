@@ -28,32 +28,45 @@ r.on('line', line =>{
     puzzlesolver(line, rownumber, array2D, id)
     
 
-    for (let t = 0; index < line.t; t++) {
-        console.log(array2D[row][index])
+    for (let t = 0; t < line.length; t++) {
+        console.log(array2D[rownumber][t])
     }
     rownumber++
 }) 
 
 
-function puzzlesolver(line, rownumber, array2D, id) {
+function puzzlesolver(line, rownumber, array2D) {
     for (let index = 0; index < line.length; index++) {
 
-        let number = ""
-        let numberlength = 0
-        
-        while (line[index + numberlength] !== "." && !isNaN(line[index+numberlength]) && index+numberlength < line.length) {
-            number += (line[index + numberlength]).toString()
-            numberlength++
+        if (line[index] !== "." && !isNaN(line[index])) {
+            
+            let number = ""
+            let numberlength = 0
+            
+            while (line[index + numberlength] !== "." && !isNaN(line[index+numberlength]) && index+numberlength < line.length) {
+                number += (line[index + numberlength]).toString()
+                numberlength++
+            }
+            
+            for (let i = 0; i < numberlength; i++) {
+                let numberobject = new Number( parseInt(number),id)
+                array2D[rownumber][index + i] = numberobject
+            }
+            id++
+            index += numberlength-1
         }
-        parseInt(number)
+        else if (line[index] !== "." && isNaN(line[index])) {
+            array2D[rownumber][index] = line[index]
+        }
+        else {
+            array2D[rownumber][index] = line[index]
+        }
 
-        for (let i = 0; i < numberlength; i++) {
-            let numberobject = new Number(number,id)
-            array2D[rownumber][index + i] = numberobject
-        }
-        id++
-        index += numberlength
     }
+
+}
+
+function puzzlesolver(line, rownumber, array2D) {
 
 }
 
